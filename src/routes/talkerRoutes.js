@@ -1,5 +1,6 @@
 const express = require('express');
 const checkAuthorization = require('../middlewares/checkAuthorization');
+const checkName = require('../middlewares/checkName');
 const { reader, writer } = require('../utils/readWrite');
 
 const talkerRoutes = express.Router();
@@ -9,12 +10,17 @@ talkerRoutes.get('/talker', async (_req, res) => {
   res.status(200).json(talkers);
 });
 
-talkerRoutes.post('/talker', checkAuthorization, async (req, res) => {
+talkerRoutes.post(
+  '/talker',
+  checkAuthorization,
+  checkName,
+  async (req, res) => {
     const { name, age, talk } = req.body;
     await writer({ name, age, talk });
     const talkers = await reader();
     res.status(201).json(talkers.at(-1));
-  });
+  },
+);
 
 talkerRoutes.get('/talker/:id', async (req, res) => {
   const { id } = req.params;
