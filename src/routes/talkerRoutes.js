@@ -1,6 +1,5 @@
 const express = require('express');
-const {reader} = require('../utils/readWrite')
-
+const { reader } = require('../utils/readWrite');
 
 const talkerRoutes = express.Router();
 
