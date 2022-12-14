@@ -1,5 +1,5 @@
 const express = require('express');
-const { reader } = require('../utils/readWrite');
+const { reader, writer } = require('../utils/readWrite');
 
 const talkerRoutes = express.Router();
 
@@ -17,6 +17,13 @@ talkerRoutes.get('/talker/:id', async (req, res) => {
     }
 
     res.status(200).json(targetTalker);
+});
+
+talkerRoutes.post('/talker', async (req, res) => {
+    const { name, age, talk } = req.body;
+    await writer({ name, age, talk });
+    const talkers = await reader();
+    res.status(201).json(talkers.at(-1));
 });
 
 module.exports = talkerRoutes;
