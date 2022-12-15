@@ -14,7 +14,7 @@ const reader = async () => {
 
 const writer = async (content) => {
     const talkers = await reader();
-    const id = talkers.at(-1).id + 1;
+    const id = talkers[talkers.length - 1].id + 1;
     const updatedTalkers = [...talkers, { id, ...content }];
     await fs.writeFile(path, JSON.stringify(updatedTalkers));
 };
