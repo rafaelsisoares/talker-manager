@@ -33,7 +33,8 @@ talkerRoutes.post(
 talkerRoutes.get('/talker/search', async (req, res) => {
   const talkers = await reader();
   const { q } = req.query;
-  const targetTalkers = talkers.filter(({ name }) => name.toLowerCase().includes(q));
+  const targetTalkers = talkers.filter(({ name }) => 
+    name.toLowerCase().includes(q.toLowerCase()));
   res.status(200).json(targetTalkers);
 });
 
