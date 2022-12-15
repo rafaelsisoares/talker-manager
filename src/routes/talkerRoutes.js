@@ -26,7 +26,7 @@ talkerRoutes.post(
     const { name, age, talk } = req.body;
     await writer({ name, age, talk });
     const talkers = await reader();
-    res.status(201).json(talkers.at(-1));
+    res.status(201).json(talkers[talkers.length - 1]);
   },
 );
 
