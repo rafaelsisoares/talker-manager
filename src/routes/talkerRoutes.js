@@ -5,7 +5,7 @@ const checkName = require('../middlewares/checkName');
 const checkRate = require('../middlewares/checkRate');
 const checkTalk = require('../middlewares/checkTalk');
 const checkWatchedAt = require('../middlewares/checkWatchedAt');
-const { reader, writer, update } = require('../utils/readWrite');
+const { reader, writer, update, remove } = require('../utils/readWrite');
 
 const talkerRoutes = express.Router();
 
@@ -58,5 +58,11 @@ talkerRoutes.put(
     res.status(200).json(updatedTalker);
   },
 );
+
+talkerRoutes.delete('/talker/:id', checkAuthorization, async (req, res) => {
+  const { id } = req.params;
+  await remove(+id);
+  res.status(204).end();
+});
 
 module.exports = talkerRoutes;
