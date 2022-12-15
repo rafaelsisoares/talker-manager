@@ -43,11 +43,20 @@ talkerRoutes.get('/talker/:id', async (req, res) => {
   res.status(200).json(targetTalker);
 });
 
-talkerRoutes.put('/talker/:id', async (req, res) => {
-  const { id } = req.params;
-  const { name, age, talk } = req.body;
-  const updatedTalker = await update({ name, age, talk }, +id);
-  res.status(200).json(updatedTalker);
-});
+talkerRoutes.put(
+  '/talker/:id',
+  checkAuthorization,
+  checkName,
+  checkAge,
+  checkTalk,
+  checkWatchedAt,
+  checkRate,
+  async (req, res) => {
+    const { id } = req.params;
+    const { name, age, talk } = req.body;
+    const updatedTalker = await update({ name, age, talk }, +id);
+    res.status(200).json(updatedTalker);
+  },
+);
 
 module.exports = talkerRoutes;

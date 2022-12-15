@@ -26,6 +26,7 @@ const update = async (talker, id) => {
     talkers[targetTalkerIndex].name = name;
     talkers[targetTalkerIndex].age = age;
     talkers[targetTalkerIndex].talk = { ...talk };
+    await fs.writeFile(path, JSON.stringify(talkers));
     return talkers[targetTalkerIndex];
 };
 
