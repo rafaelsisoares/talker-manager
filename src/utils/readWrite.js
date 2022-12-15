@@ -19,7 +19,18 @@ const writer = async (content) => {
     await fs.writeFile(path, JSON.stringify(updatedTalkers));
 };
 
+const update = async (talker, id) => {
+    const { name, age, talk } = talker;
+    const talkers = await reader();
+    const targetTalkerIndex = talkers.findIndex((t) => t.id === id);
+    talkers[targetTalkerIndex].name = name;
+    talkers[targetTalkerIndex].age = age;
+    talkers[targetTalkerIndex].talk = { ...talk };
+    return talkers[targetTalkerIndex];
+};
+
 module.exports = {
     reader,
     writer,
+    update,
 };

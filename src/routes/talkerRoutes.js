@@ -5,7 +5,7 @@ const checkName = require('../middlewares/checkName');
 const checkRate = require('../middlewares/checkRate');
 const checkTalk = require('../middlewares/checkTalk');
 const checkWatchedAt = require('../middlewares/checkWatchedAt');
-const { reader, writer } = require('../utils/readWrite');
+const { reader, writer, update } = require('../utils/readWrite');
 
 const talkerRoutes = express.Router();
 
@@ -41,6 +41,13 @@ talkerRoutes.get('/talker/:id', async (req, res) => {
   }
 
   res.status(200).json(targetTalker);
+});
+
+talkerRoutes.put('/talker/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, age, talk } = req.body;
+  const updatedTalker = await update({ name, age, talk }, +id);
+  res.status(200).json(updatedTalker);
 });
 
 module.exports = talkerRoutes;
