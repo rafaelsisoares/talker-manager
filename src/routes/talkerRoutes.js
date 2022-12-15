@@ -2,6 +2,7 @@ const express = require('express');
 const checkAge = require('../middlewares/checkAge');
 const checkAuthorization = require('../middlewares/checkAuthorization');
 const checkName = require('../middlewares/checkName');
+const checkTalk = require('../middlewares/checkTalk');
 const { reader, writer } = require('../utils/readWrite');
 
 const talkerRoutes = express.Router();
@@ -16,6 +17,7 @@ talkerRoutes.post(
   checkAuthorization,
   checkName,
   checkAge,
+  checkTalk,
   async (req, res) => {
     const { name, age, talk } = req.body;
     await writer({ name, age, talk });
