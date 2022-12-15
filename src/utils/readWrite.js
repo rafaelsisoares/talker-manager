@@ -38,8 +38,20 @@ const update = async (talker, id) => {
     }
 };
 
+const remove = async (id) => {
+    const talkers = await reader();
+    const index = talkers.findIndex((t) => t.id === id);
+    talkers.splice(index, 1);
+    try {
+        await fs.writeFile(path, JSON.stringify(talkers));
+    } catch (e) {
+        console.error(e.message);
+    }
+};
+
 module.exports = {
     reader,
     writer,
     update,
+    remove,
 };
