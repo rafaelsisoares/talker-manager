@@ -30,7 +30,7 @@ talkerRoutes.post(
   },
 );
 
-talkerRoutes.get('/talker/search', async (req, res) => {
+talkerRoutes.get('/talker/search', checkAuthorization, async (req, res) => {
   const talkers = await reader();
   const { q } = req.query;
   const targetTalkers = talkers.filter(({ name }) => 
